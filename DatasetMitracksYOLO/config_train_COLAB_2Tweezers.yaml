@@ -1,0 +1,9 @@
+# Please VERIFY or MODIFY: USE your own path
+
+path: '/content/drive/MyDrive/DatasetM_YOLO/datasets' # dataset root dir
+train: images/train  # train images (relative to 'path')
+val: images/val  # val images (relative to 'path')
+
+# Classes
+nc: 2  # number of classes
+names: [ 'None0', 'Tweezer']

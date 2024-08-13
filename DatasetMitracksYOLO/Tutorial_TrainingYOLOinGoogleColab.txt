@@ -1,0 +1,192 @@
+In this document, you will find the instructions for training a YOLO model to identify tools in microsurgery from images of the stereotracker Mitracks3D. Please follow the steps outlined below in order.
+
+
+I recommend that you use an alterntive (not your personal) Google account for training deep learning models using Google Colab.
+
+
+Attached to this tutorial, you will find a dataset of 1000 images, and the labels for each image in YOLO format. In this case, 80% of these images will be used for training and the remaining 20% for validation.
+
+
+1. Upload the DatasetMitracksYOLO folder to your Google drive 'MyDrive'. The folders and files included in this example must keep the structure: 
+
+...MyDrive\DatasetMitracksYOLO\datasets\images\train
+...MyDrive\DatasetMitracksYOLO\datasets\images\val
+
+...MyDrive\DatasetMitracksYOLO\datasets\labels\train
+...MyDrive\DatasetMitracksYOLO\datasets\labels\val
+
+...MyDrive\DatasetMitracksYOLO\config_train_COLAB_2Tweezers.yaml
+
+Note: You must verify or modify the first line of the "config_train_COLAB_2Tweezers.yaml" file, which indicates the main path. This file can be opened using Notepad, for example: 
+
+---------config_train_COLAB_2Tweezers.yaml-----------
+
+path: '/content/drive/MyDrive/DatasetMitracksYOLO/datasets' 	# <-- Verify or modify this line for your own 'dataset root dir'
+train: images/train  # train images (relative to 'path')
+val: images/val  # val images (relative to 'path')
+
+# Classes
+nc: 2  # number of classes					# <-- In this example, we will use just 1 class 'Tweezer'
+names: [ 'None0', 'Tweezer']
+-----------------------------------------------------
+
+
+
+2. Now, open Google Colab using the web browser, login in with the same Google account used for the Google Drive. 
+Go to the runtime environment menu, select Python 3, and T4 GPU. Then, you will import the images to Colab, mounting Google Drive in Colab. 
+
+NOTE: The COLAB script starts here, for your convenience you have 2 options:
+1.- Open COLAB and upload the script TrainYOLOinCOLAB_4Mitracks.ipynb and play each cell, one by one.
+2.- Copy and paste the next lines in the first code cell and so on (the full script is at the end of this document).
+
+
+# Training a YOLO model for microsurgery tracking, STARTING HERE:
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+ROOT_DIR = '/content/drive/MyDrive/DatasetMitracksYOLO/datasets'
+
+
+
+3. Next code cell, install Ultralytics using the following line in the script:
+
+!pip install ultralytics
+
+
+4. In the code cell of the Colab script, use this script to train and validate the model:
+
+import os
+
+from ultralytics import YOLO
+
+
+# Load a model
+model = YOLO("yolov8n.yaml")  # build a new model from scratch, you can use the model yolov8X  where X is n, m, l, etc (n from nano is great to start)
+
+# Use the model
+results = model.train(data=os.path.join(ROOT_DIR, "config_train_COLAB_2Tweezers"), epochs=100)  # train the model, start with 100 epochs for example
+
+
+
+5. Next code cell, saving the results of the training:
+
+import locale
+print(locale.getpreferredencoding())
+
+def getpreferredencoding(do_setlocale = True):
+    return "UTF-8"
+locale.getpreferredencoding = getpreferredencoding
+
+!scp -r /content/runs '/content/drive/MyDrive/DatasetMitracksYOLO/TEST_NAME'    # Use your path
+
+
+6. Next code cell:
+!zip -r /content/TEST_NAME.zip /content/runs
+
+7. Next code cell:
+import locale
+print(locale.getpreferredencoding())
+
+
+8. Next code cell:
+def getpreferredencoding(do_setlocale = True):
+    return "UTF-8"
+locale.getpreferredencoding = getpreferredencoding
+
+9. Next code cell:
+from google.colab import files
+files.download("/content/TEST_NAME.zip")
+
+
+
+Thank you very much.
+
+
+
+
+-----------------------    Full script:    -----------------------
+
+# Training a YOLO model for microsurgery tracking, starting here
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+
+
+
+ROOT_DIR = '/content/drive/MyDrive/DatasetMitracksYOLO/datasets'
+
+
+
+
+!pip install ultralytics
+
+
+
+
+import os
+
+from ultralytics import YOLO
+
+# Load a model
+model = YOLO("yolov8n.yaml")  # build a new model from scratch, you can use the model yolov8X  where X is n, m, l, etc (n from nano is great to start)
+
+# Use the model
+results = model.train(data=os.path.join(ROOT_DIR, "config_train_COLAB_2Tweezers"), epochs=100)  # train the model, start with 100 epochs for example
+
+
+
+
+import locale
+print(locale.getpreferredencoding())
+
+def getpreferredencoding(do_setlocale = True):
+    return "UTF-8"
+locale.getpreferredencoding = getpreferredencoding
+
+!scp -r /content/runs '/content/drive/MyDrive/DatasetMitracksYOLO/TEST_NAME'    # Remember, Use your own path
+
+
+
+
+
+!zip -r /content/TEST_NAME.zip /content/runs
+
+
+
+
+
+import locale
+print(locale.getpreferredencoding())
+
+
+
+
+
+def getpreferredencoding(do_setlocale = True):
+    return "UTF-8"
+locale.getpreferredencoding = getpreferredencoding
+
+
+
+
+
+from google.colab import files
+files.download("/content/TEST_NAME.zip")
+
+
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
