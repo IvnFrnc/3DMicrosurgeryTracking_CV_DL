@@ -60,7 +60,7 @@ The `3D_MicrosurgeryTracking.py` script will generate two `.txt` files, `data_3D
 
 **Script:** `3D_MicrosurgeryTracking.py`  
 **Inputs:** `example_trial1` (dataset), YOLO model `best_Mitracks3D_YOLOv8X.pt`  
-**Outputs:** `data_3D_mitracks.txt`, `data_3D_YOLO8.txt`, `Instruments_tracking.mp4`
+**Outputs:** `data_3D_mitracks.txt`, `data_3D_YOLO8.txt`
 
 4. The `OutputsExample` folder contains examples of outputs from the last described script.
 
@@ -96,4 +96,4 @@ The `MATLAB` folder contains the following:
 
 ### 4. Video Demonstration
 
-`TrackingMitracks3DvsYOLOv8.mp4` is a video demonstrating the detection and tracking of 3D movement using both methods: color marker-based tracking and YOLO deep learning tracking.
+In the following link you can find a video demonstrating the detection and tracking of 3D movement using both methods: color marker-based tracking and YOLO deep learning tracking: https://youtu.be/TCq9_qYcfXo
