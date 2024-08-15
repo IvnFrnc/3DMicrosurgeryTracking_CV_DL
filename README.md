@@ -96,4 +96,5 @@ The `MATLAB` folder contains the following:
 
 ### 4. Video Demonstration
 
+To illustrate the transfer of objects, the video `Example_First_6_transfers.mp4` was added
 In the following link you can find a video demonstrating the detection and tracking of 3D movement using both methods: color marker-based tracking and YOLO deep learning tracking: https://youtu.be/TCq9_qYcfXo
